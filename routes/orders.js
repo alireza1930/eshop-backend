@@ -2,6 +2,7 @@ const { Order } = require('../models/order');
 const { OrderItem } = require('../models/order-item');
 const express = require('express');
 const { Category } = require('../models/category');
+const { Product } = require('../models/product');
 const router = express.Router();
 
 router.get(`/`, async (req, res) => {
@@ -101,6 +102,16 @@ router.get('/get/totalsales', async (req, res) => {
 
   res.send({ totalsales: totalSales.pop().totalsales });
 });
+
+router.get('/get/count', async (req, res) =>{
+  const orderCount = await Order.countDocuments();
+  if(!orderCount) {
+    res.status(500).json({success: false})
+  }
+  res.send({
+    orderCount: orderCount
+  });
+})
 
 router.get(`/get/userorders/:userid`, async (req, res) => {
   const userOrderList = await Order.find({ user: req.params.userid }).populate({
