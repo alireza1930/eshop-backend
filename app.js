@@ -40,5 +40,5 @@ mongoose
 
 app.listen(3000, () => {
   console.log(api);
-  console.log('serve is running port 3000');
+  console.log('serve is running by port 3000');
 });
